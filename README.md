@@ -20,3 +20,113 @@ python3 -m venv venv
 
 pip install -r requirements.txt
 
+### Step 2: Put videos into the data folder following described folder structure
+
+### Step 3: Sync two videos
+cd ReefMotion3D/tools
+
+python audio-stereo-video-sync.py /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/Left/GX020703.MP4 /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/Right/GX020029.MP4 40 /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/offset.txt
+
+### Folder structure
+
+ReefMotion3D/
+    tools/
+    bs/
+        colmap/
+        help files/
+            .ipynb_checkpoints/
+        scripts/
+        jupyter/
+            GPO/
+                examples/
+                    .ipynb_checkpoints/
+                .ipynb_checkpoints/
+            .ipynb_checkpoints/
+            tiled_imgs/
+            src/
+                python-graphslam/
+                    images/
+                    tests/
+                    docs/
+                        source/
+                            images/
+                    scripts/
+                    .github/
+                        workflows/
+                    .git/
+                        objects/
+                            pack/
+                            info/
+                        info/
+                        logs/
+                            refs/
+                                heads/
+                                remotes/
+                                    origin/
+                        hooks/
+                        refs/
+                            heads/
+                            tags/
+                            remotes/
+                                origin/
+                    data/
+                    graphslam/
+                        edge/
+                        pose/
+                graphslam/
+                    images/
+                    tests/
+                    graphslam.egg-info/
+                    docs/
+                        source/
+                            images/
+                    scripts/
+                    .github/
+                        workflows/
+                    .git/
+                        objects/
+                            pack/
+                            info/
+                        info/
+                        logs/
+                            refs/
+                                heads/
+                                remotes/
+                                    origin/
+                        hooks/
+                        refs/
+                            heads/
+                            tags/
+                            remotes/
+                                origin/
+                    data/
+                    graphslam/
+                        __pycache__/
+                        edge/
+                            __pycache__/
+                        pose/
+                            __pycache__/
+                        .ipynb_checkpoints/
+    .git/
+        objects/
+            66/
+            5a/
+            ac/
+            be/
+            e4/
+            pack/
+            info/
+            b8/
+            13/
+        info/
+        logs/
+            refs/
+                heads/
+                remotes/
+                    origin/
+        hooks/
+        refs/
+            heads/
+            tags/
+            remotes/
+                origin/
