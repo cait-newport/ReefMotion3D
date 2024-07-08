@@ -21,20 +21,27 @@ python3 -m venv venv
 pip install -r requirements.txt
 ```
 
-### Step 2: Put videos into the data folder following described folder structure
+### Step 2: Put videos into the 'data' folder following described folder structure
+Currently this is in a local folder but would like to make this so it is remote (e.g. RFS, or a different drive).
 
 ### Step 3: Sync two videos
 #### Find offset between two videos
+This is based on audio data within the video. Requires input such as 'trim' which is how much of the video you want to compare. A shorter trim value runs faster but may be less accurate. 
+
+```
 cd ReefMotion3D/tools
 
 python audio-stereo-video-sync.py /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/Left/GX020703.MP4 /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/Right/GX020029.MP4 40 /Users/user/projects/ReefMotion3D/data/2024_02_14/Cait/offset.txt
+```
 
 #### Determines a starting frame for each video
-This is needed to ensure the start frame is always a positive integer
-- Currently inputs are within the script. 
+Input should either be manual, or calculated using the find_start_frame.py script. This script is needed to ensure the start frame is always a positive integer.
+- Currently inputs are within the script.
+
 
 #### Extracts frames
-* Not tested yet
+- Not tested yet
+
 Videos have been divided into smaller video sections by GoPro. In some cases Rather than  This script allows you to identify multiple videos that 
 Example usage: 
 main('path/to/your/textfile.txt', 'path/to/output/folder')
