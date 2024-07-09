@@ -12,7 +12,17 @@ ReefMotion3D leverages Structure from Motion (SfM) to create high-resolution 3D 
 ## Tutorial: Getting Started with ReefMotion3D
 Learn how to use ReefMotion3D to create high-resolution 3D models of coral reefs and analyze fish movements. This tutorial provides step-by-step instructions and examples to help you get started with the software. Whether you're a marine researcher or an enthusiast, this tutorial will guide you through the process of leveraging Structure from Motion (SfM) technology for studying coral reef ecosystems and fish behavior.
 
-* [Video preprocessing] (docs/Preprocessing.md)
+This project has several stages:
+
+* [Video preprocessing](docs/Preprocessing.md)
+* Fish position reconstruction
+* Terrain reconstruction
+
+## License
+All the assets (code, research paper, videos and documentation) described in this research project are licensed under the Creative Commons [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) license.
+
+## Contact 
+This code repository is developed and maintained by Cait Newport. For feedback and queries related to this project, contact [Cait Newport](mailto:caitlin.newport@biology.ox.ac.uk).
 
 
 ### Folder structure
