@@ -17,11 +17,21 @@ In the terminal, navigate to your repository folder using cd.
 once in the correct folder, create and activate a virtual environment.
 
 ```
+# In the terminal
+cd path/to/ReefMotion3D/
 python3 -m venv venv
 pip install -r requirements.txt
 ```
 
-### Step 2: Put videos into the 'data' folder following described folder structure
+### Step 2: Check folder structure
+ This script will check you are in the ReefMotion3D folder. It will also check that a 'tools', 'data', and 'results' folder exist. If it doesnt' they will be automatically made.
+ 
+ ```
+ # In the terminal
+ python check_folder.py
+ ```
+
+### Step 3: Put videos into the 'data' folder following described folder structure
 Currently this is in a local folder but would like to make this so it is remote (e.g. RFS, or a different drive).
 
 ### Step 3: Sync two videos
