@@ -1,38 +1,38 @@
-# Description: This script sets the root directory of the project and checks that folders are in place. 
-# If folders are missing, they are created.
+"""
+Description: This script checks that it is being run from the correct location and then
+checks that folders are in place.
+If folders are missing, they are created.
+"""
 
-import os
+import logging
+import sys
+from pathlib import Path
 
-def check_and_create_folders():
-    # Get the current working directory
-    current_directory = os.getcwd()
-    
-    # Define the parent folder name
-    parent_folder_name = 'ReefMotion3D'
-    
-    # Define the full path for the parent folder
-    parent_folder_path = os.path.join(current_directory, parent_folder_name)
-    
-    # Create the parent folder if it doesn't exist
-    if not os.path.exists(parent_folder_path):
-        os.makedirs(parent_folder_path)
-        print(f"Created parent folder: {parent_folder_path}")
-    else:
-        print(f"Parent folder already exists: {parent_folder_path}")
-    
-    # Define the folders to check within the parent folder
-    folders = ['tools', 'data', 'results']
-    
-    for folder in folders:
-        folder_path = os.path.join(parent_folder_path, folder)
-        
+from config import cfg
+
+# Define the folders to check within the parent folder
+FOLDERS = ["data", "results"]
+CWD = Path.cwd()
+
+def check_and_create_folders(parent_folder_path=cfg.ROOT_FILEPATH):
+
+    # Check if the current working directory is the parent folder
+    if parent_folder_path != CWD:
+        msg = (f"Please run this script from the parent folder: {parent_folder_path}. "
+               f"Current working directory: {CWD}")
+        logging.error(msg)
+        sys.exit(1)
+
+    for folder in FOLDERS:
+        folder_path = parent_folder_path / folder
+
         # Check if the folder exists, if not, create it
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-            print(f"Created folder: {folder_path}")
+        if not folder_path.exists():
+            folder_path.mkdir(parents=True)
+            logging.info(f"Folder created: {folder_path}")
         else:
-            print(f"Folder already exists: {folder_path}")
+            logging.info(f"Folder found: {folder_path}")
+
 
 if __name__ == "__main__":
     check_and_create_folders()
-
