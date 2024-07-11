@@ -1,7 +1,9 @@
-from audio_offset_finder.audio_offset_finder import find_offset_between_files
-import os
-import sys
+import logging
 import subprocess
+import sys
+
+import click
+from audio_offset_finder.audio_offset_finder import find_offset_between_files
 
 # Description: This script is used to find the offset between two audio files.
 # 
@@ -25,58 +27,50 @@ import subprocess
 
 def check_ffmpeg():
     try:
-        subprocess.run(["ffmpeg", "-version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print("ffmpeg is installed and available.")
+        subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True)
+        logging.info("ffmpeg is installed and available.")
     except FileNotFoundError:
-        print("Error: ffmpeg is not installed or not found in the system PATH.")
+        logging.error("Error: ffmpeg is not installed or not found in the system PATH.")
         sys.exit(1)
     except subprocess.CalledProcessError as e:
-        print("Error while checking ffmpeg installation:", e)
+        logging.error(f"Error while checking ffmpeg installation: {e}")
         sys.exit(1)
-
-def check_files_exist(filepath1, filepath2):
-    if not os.path.exists(filepath1):
-        print(f"Error: The file '{filepath1}' does not exist.")
-        sys.exit(1)
-    if not os.path.exists(filepath2):
-        print(f"Error: The file '{filepath2}' does not exist.")
-        sys.exit(1)
-
 
 def sync_by_audio(filepath1, filepath2, trim_input, offset_output):
     # Only use the first n seconds of each audio file
     results = find_offset_between_files(filepath1, filepath2, trim=trim_input)
     # check script is working
-    print("sync_by_audio is working")
+    logging.info("sync_by_audio is working")
     # TODO: warning for very poor sync
     # Print the offset between the two videos
-    print("Offset between videos: %s (seconds)" % str(results["time_offset"]))
-    print("Frame offset: %s" % str(results["frame_offset"]))
-    print("Standard score: %s" % str(results["standard_score"]))
+    logging.info("Offset between videos: {} (seconds)".format(str(results["time_offset"])))
+    logging.info("Frame offset: %s" % str(results["frame_offset"]))
+    logging.info("Standard score: %s" % str(results["standard_score"]))
     # Add a warning if the standard score is very low
     if results["standard_score"] < 10:
-        print("Warning: The standard score is very low, indicating poor synchronization")
+        logging.info("Warning: The standard score is very low, indicating poor synchronization")
     
     # Save the offset to a text file
     try:
         # Attempt to open and write to the file
         with open(offset_output, "w") as file:
-            file.write(f"Time Offset: {str(results['time_offset'])}\n")
+            file.write(f"Time Offset: {results['time_offset']!s}\n")
             file.write(f"Frame Offset: {str(results['frame_offset'])}\n")
             file.write(f"Standard Score: {str(results['standard_score'])}\n")
-        print(f"Successfully wrote to {offset_output}")
+        logging.info(f"Successfully wrote to {offset_output}")
     except Exception as e:
-        print(f"Error writing to file: {e}")
+        logging.error(f"Error writing to file: {e}")
+
+@click.command()
+@click.argument('file1', type=click.Path(exists=True))
+@click.argument('file2', type=click.Path(exists=True))
+@click.argument('trim_input', type=float)
+@click.argument('offset_output', type=click.Path())
+
+def main(file1, file2, trim_input, offset_output):
+    """Script to find the offset between two audio files."""
+    check_ffmpeg()
+    sync_by_audio(file1, file2, trim_input, offset_output)
 
 if __name__ == "__main__":
-    check_ffmpeg()
-    
-    if len(sys.argv) != 5:
-        print("Usage: python audio-stereo-video-sync.py <file1> <file2> <trim_input> <offset_output>")
-    else:
-        filepath1 = sys.argv[1]
-        filepath2 = sys.argv[2]
-        trim_input = float(sys.argv[3])
-        offset_output = sys.argv[4]
-        check_files_exist(filepath1, filepath2)
-        sync_by_audio(filepath1, filepath2, trim_input, offset_output)
+    main()
