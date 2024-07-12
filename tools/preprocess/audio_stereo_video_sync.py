@@ -27,6 +27,8 @@ import yaml
 # Load the function from the audio_offset_finder package
 
 def check_ffmpeg():
+    """Check if ffmpeg is installed and available."""
+
     try:
         subprocess.run(["ffmpeg", "-version"], check=True, capture_output=True)
         logging.info("ffmpeg is installed and available.")
@@ -38,6 +40,13 @@ def check_ffmpeg():
         sys.exit(1)
 
 def sync_by_audio(filepath1, filepath2, trim_input, offset_output):
+    """Find the offset between two audio files.
+    Args:
+        filepath1 (str): The path to the first audio file.
+        filepath2 (str): The path to the second audio file.
+        trim_input (float): The number of seconds to use from the beginning of each audio file.
+        offset_output (str): The path to save the offset information."""
+
     # Only use the first n seconds of each audio file
     results = find_offset_between_files(filepath1, filepath2, trim=trim_input)
     # check script is working
