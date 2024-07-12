@@ -25,7 +25,7 @@ def preprocess():
     left_video_path = config['left_video']
     right_video_path = config['right_video']
     trim_input = config['trim_input']
-    output_file = config['output_file']
+    offset_file = config['offset_file']
 
     # Call the sync_by_audio function with the extracted information
     logging.debug("Calculating offset between videos using audio")
@@ -33,7 +33,7 @@ def preprocess():
         left_video_path,
         right_video_path,
         trim_input,
-        output_file
+        offset_file
     )
 
 
