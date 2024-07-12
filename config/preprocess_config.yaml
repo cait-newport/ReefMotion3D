@@ -1,0 +1,9 @@
+# Configuration file for the preprocess.py script
+
+# Stereo video file locations
+left_video: "/path/to/left/video.mp4"
+right_video: "/path/to/right/video.mp4"
+
+# Parameters for the video synchronization
+trim_input: 10 # Number of seconds to use from the beginning of each file
+output_file: "/path/to/output_file.txt"  # Output file location

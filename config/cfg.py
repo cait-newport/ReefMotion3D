@@ -20,7 +20,7 @@ LOGGING_DATE_FMT = "%d-%b-%y %H:%M:%S"
 
 def setup_logging():
     logging.basicConfig(format=LOGGING_FMT, datefmt=LOGGING_DATE_FMT)
-    logging.getLogger().setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.INFO)
     formatter = logging.Formatter(LOGGING_FMT, datefmt=LOGGING_DATE_FMT)
     file_handler = logging.FileHandler(str(ROOT_FILEPATH / LOG_FILENAME))
     file_handler.setLevel(logging.DEBUG)
