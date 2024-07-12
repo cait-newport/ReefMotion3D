@@ -4,6 +4,7 @@ import sys
 
 import click
 from audio_offset_finder.audio_offset_finder import find_offset_between_files
+import yaml
 
 # Description: This script is used to find the offset between two audio files.
 # 
@@ -49,14 +50,16 @@ def sync_by_audio(filepath1, filepath2, trim_input, offset_output):
     # Add a warning if the standard score is very low
     if results["standard_score"] < 10:
         logging.info("Warning: The standard score is very low, indicating poor synchronization")
-    
-    # Save the offset to a text file
+
+    # Save the offset to a YAML file
     try:
         # Attempt to open and write to the file
         with open(offset_output, "w") as file:
-            file.write(f"Time Offset: {results['time_offset']!s}\n")
-            file.write(f"Frame Offset: {str(results['frame_offset'])}\n")
-            file.write(f"Standard Score: {str(results['standard_score'])}\n")
+            yaml.dump({
+                "Time Offset": float(results["time_offset"]),
+                "Frame Offset": int(results["frame_offset"]),
+                "Standard Score": float(results["standard_score"]),
+            }, file)
         logging.info(f"Successfully wrote to {offset_output}")
     except Exception as e:
         logging.error(f"Error writing to file: {e}")
